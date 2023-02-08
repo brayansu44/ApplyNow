@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from Solicitar import views, qr
+from Solicitar import views
 from ApplyNowApp.views import index 
 urlpatterns = [
     path('equipos', views.equipos, name="Equipos"),
@@ -31,6 +31,5 @@ urlpatterns = [
     path('entregar_entretenimiento', views.entregarEntretenimiento, name="Entregar_entretenimiento"),
     path('historial_entretenimiento', views.historialEntretenimiento, name="Historial_entretenimiento"),
 
-    path('qr', qr.leerQR, name="QR"),
     
 ]
