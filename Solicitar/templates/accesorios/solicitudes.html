@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="refresh" content="3"> <div onClick="refrescarPagina()">refresh</div>-->
+    <!--refrescar cada 5 segundos-->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    <!-- ALERTYFY JS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <title>Solicitudes De Accesorios</title>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav2">
+        <div class="container">
+            <a class="navbar-brand navbar-image" href="#page-top"><img src="{% static 'assets/img/logo.png' %}"
+                    style="height: 70px;" alt="..." /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link link" href="{% url 'Index' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link link" href="{% url 'Solicitudes_equipos' %}">Equipos</a></li>
+                    <li class="nav-item"><a class="nav-link link" href="{% url 'Solicitudes_balones' %}">Balones</a></li>
+                    <li class="nav-item"><a class="nav-link link" href="{% url 'Solicitudes_entretenimiento' %}">Entretenimiento</a></li>
+                    <li class="nav-item dropdown link">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{user.first_name}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="d-i"><a class="d-d" href="{% url 'Perfil' %}">Perfil</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="d-a"><a class="d-d" href="cerrar_sesion">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br>
+    <!--TABLA VISUAL-->
+    <div class="py-5">
+        <div class="container">
+            <div class="card-header2">
+                <h3 class="mb-0">
+                    -
+                    <a onClick="refrescarPagina()" class="btn btn-info float-end"><i class="fa-solid fa-rotate-right"></i></a>
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body cartdata">
+                            {% if solicitudes %}
+                                <table class="table text-center">
+                                <thead>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Cantidad</th>
+                                    <th>Usuario</th>
+                                    <th>Acción</th>
+                                </thead>
+                                <tbody>
+                                    {% for solicitud in solicitudes %}
+                                    <tr>
+                                        <td>{{solicitud.created}}</td>
+                                        <td>{{solicitud.tipo}}</td>
+                                        <td>{{solicitud.cantidad}}</td>
+                                        <td>{{solicitud.user.username}}</td>
+                                        <td><a href="#" class="btn btn-success" onClick="one()"><i class="fa-solid fa-circle-check"></i></a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <h3 style="text-align: center;">No hay accesorios solicitados</h3>
+                            {% endif %}             
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+    <!--TABLA LOGICA-->
+    <div class="py-5 displaynone">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body displaynone cartdata">
+                            {% if solicitudes %}
+                                {% for solicitud in solicitudes %}
+                                    <div class="rowPrueba accesorio_data">
+                                        <div class="inlinePrueba">
+                                            <div class="col_w3">
+                                                <h6>{{solicitud.created}}</h6>
+                                            </div>
+                                            <div class="col_w3">
+                                                <h6>{{solicitud.tipo}}</h6>
+                                            </div>
+                                            <div class="col_w1">
+                                                <h6>{{solicitud.cantidad}}</h6>
+                                            </div>
+                                            <div class="col_w2">
+                                                <h6>{{solicitud.user.username}}</h6>
+                                            </div>
+                                            <input type="hidden" value="{{solicitud.id}}" class="accesorio_id">
+                                            <input type="hidden" value="{{solicitud.user}}" class="accesorio_user">
+                                            <input type="hidden" value="{{solicitud.tipo}}" class="accesorio_tipo">
+                                            <input type="hidden" value="{{solicitud.cantidad}}" class="accesorio_cantidad">
+                                            {% csrf_token %}
+                                            <div class="col_w1">
+                                                <button id="onStart" class="btn btn-success ajuste entregarAccesorio"><i class="fa-solid fa-circle-check"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="rowPrueba accesorio_data">
+                                    <div class="inlinePrueba">
+                                        <h3 style="text-align: center;">No hay accesorios solicitados</h3>
+                                    </div>
+                                </div>       
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>    
+<script>
+    alertify.set('notifier','position', 'top-right');
+
+    function one(){
+        var obj=document.getElementById('onStart');
+        console.log(obj);
+        obj.click();
+    }
+</script> 
+
+</html>

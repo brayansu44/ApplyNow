@@ -1,0 +1,197 @@
+/*Estilos de la modal de login*/
+
+.portfolio-modal3 .modal-dialog {
+  width: 90vw;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+
+}
+
+
+.portfolio-modal3 .modal-contentS {
+  padding-bottom: 0rem;
+  text-align: center;
+  background-color: #e9ebee;
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.1), 0px 2px 4px rgba(255, 255, 255, 0.1);
+
+}
+
+/*NOTIFY*/
+
+.rowNotify{
+  display: flex;
+  width: auto;
+}
+
+.colNotify{
+  display: flex;
+  width: 400px;
+  height: 190px;
+  justify-content: center;
+  border: 2px solid transparent;
+}
+
+
+.colNotify a span:first-child {
+  display: inline-block;
+  padding: 90px;
+  top: 0px;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+}
+
+.colNotify a {
+  border: 2px solid transparent;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.colNotify a span:last-child {
+  position: absolute;
+  padding: 90px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+}
+
+.colNotify a span {
+  transition: transform 0.2s ease-out;
+}
+ 
+.colNotify a:hover span:first-child {
+  transform: translateY(100%);
+}
+ 
+.colNotify a:hover span:last-child {
+  transform: none;
+}
+
+
+
+
+
+
+.colNotify span{
+  border: 2px solid transparent;
+  font-size: 90px;
+  cursor: pointer;
+}
+/*Cantidad solicitudes*/
+.NotifyCS{
+  position: absolute;
+  text-decoration: none;
+  margin-top: 145px;
+  color: #fff;
+  font-size: 30px;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 600;
+}
+
+
+/*Titulos Notify*/
+.colNotify2{
+  display: flex;
+  width: 400px;
+  height: 190px;
+  justify-content: center;
+  border: 2px solid transparent;
+}
+
+.aNoti{
+  overflow: hidden;
+  text-decoration: none;
+  width: auto;
+  height: 50px;
+  border: 2px solid transparent;
+}
+
+.hNoti{
+  color: #000;
+  font-size: 40px;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 600;
+}
+
+
+/*SOLICITAR*/
+.col{
+  width: 320px;
+  height: 200px;
+}
+
+.col span{
+  font-size: 90px;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.col span:hover{
+  transform: scale(1.2);
+}
+
+.hSoli{
+  text-decoration: none;
+  margin-top: 180px;
+  color: #000;
+  font-size: 40px;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 600;
+}
+
+.mgS{
+  margin-left: 50px;
+}
+.mgS1{
+  margin-left: 105px;
+}
+
+
+.portfolio-modal3 .close-modal {
+  position: relative;
+  margin-left: 95%;
+  transition: transform .2s;
+}
+.portfolio-modal3 .close-modal:hover {
+  transform: scale(1.2);
+}
+
+.colNotify3{
+  display: flex;
+  width: 400px;
+  height: 190px;
+  justify-content: center;
+  border: 2px solid transparent;
+}
+
+
+.colNotify3 a span:first-child {
+  display: inline-block;
+  padding: 90px;
+  top: 0px;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+}
+
+.colNotify3 a {
+  border: 2px solid transparent;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.colNotify3 span{
+  border: 2px solid transparent;
+  font-size: 90px;
+  cursor: pointer;
+}

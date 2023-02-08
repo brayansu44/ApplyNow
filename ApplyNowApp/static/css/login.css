@@ -1,0 +1,156 @@
+/*Estilos de la modal de login*/
+
+.portfolio-modalLogin .modal-dialog {
+
+  max-width: 40vw;
+
+}
+
+
+.portfolio-modalLogin .btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.portfolio-modalLogin .btn:hover {
+  background-color: #2980B9;
+}
+
+.portfolio-modalLogin .modal-content {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  text-align: center;
+  background-color: transparent;
+  border-top: 2px solid transparent;
+}
+
+.legend {
+  position: relative;
+  width: 100%;
+  display: block;
+  background: #ffc800;
+  padding: 15px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 4px;
+}
+
+
+.input {
+  position: relative;
+  width: 90%;
+  margin: 15px auto;
+}
+
+.input2 {
+  position: relative;
+  width: 50%;
+  margin: 13px auto;
+}
+
+.input span {
+  position: absolute;
+  display: block;
+  color: #5c636a;
+  left: 10px;
+  top: 8px;
+  font-size: 20px;
+}
+
+.input input {
+  width: 100%;
+  padding: 10px 5px 10px 40px;
+  display: block;
+  transition: 0.2s ease-out;
+}
+
+.input input:focus {
+  padding: 10px 5px 10px 10px;
+  outline: 0;
+  border-color: rgb(43, 43, 43);
+}
+
+
+.inputcontent {
+  position: relative;
+  width: 100%;
+}
+
+.inputcontent input {
+  width: 100%;
+  padding: 10px 5px 10px 40px;
+  display: block;
+  transition: 0.2s ease-out;
+}
+
+.inputcontent input:focus {
+  padding: 10px 5px 10px 10px;
+  outline: 0;
+  border-color: rgb(43, 43, 43);
+  color: #000;
+}
+
+.inputcontent span {
+  position: absolute;
+  display: block;
+  color: #5c636a;
+  left: 10px;
+  top: 8px;
+  font-size: 20px;
+}
+
+.Indexinputcontent {
+  position: relative;
+  width: 450px;
+}
+
+.Indexinputcontent input {
+  width: 100%;
+  padding: 10px 5px 10px 40px;
+  display: block;
+  transition: 0.2s ease-out;
+}
+
+.Indexinputcontent input:focus {
+  padding: 10px 5px 10px 10px;
+  outline: 0;
+  border-color: rgb(43, 43, 43);
+  color: #000;
+}
+
+.Indexinputcontent span {
+  position: absolute;
+  display: block;
+  color: #5c636a;
+  left: 10px;
+  top: 8px;
+  font-size: 20px;
+}
+
+.spaninputtext {
+  position: absolute;
+  display: block;
+  color: darken(#000000, 10%);
+  left: 10px;
+  top: 8px;
+}
+
+
+span {
+  position: absolute;
+  display: block;
+  color: darken(#ededed, 10%);
+  left: 10px;
+  top: 8px;
+  font-size: 20px;
+}

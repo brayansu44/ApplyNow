@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>ApplyNow</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        
+        <link href="{% static 'css/login.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/solicitar.css' %}" rel="stylesheet" />
+
+        <!-- ALERTYFY JS -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <!-- Default theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand navbar-image col2" href="#page-top"><img src="{% static 'assets/img/logo.png' %}"  alt="..." /></a>
+                <button id="dropdownLogin" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">Beneficios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-bell"></i><span id="contadorCarrito">{{cantidad_solicitudes}}</span></a></li>-->
+                        {% if user.is_authenticated %}
+                            {% if perfil.cargo == "Administrador" %}
+                                <li class="nav-item"><div class="noti"><a class="nav-link nav-link" data-bs-toggle="modal" href="#solicitudes"><i class="fa-solid fa-bell"></i> {{cantidad_solicitudes}}</a></div></li>
+                                <li class="nav-item"><div class="noti"><a class="nav-link nav-link" data-bs-toggle="modal" href="#historial"><i class="fa-solid fa-book"></i></a></div></li>    
+                        {% endif %}      
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{user.first_name}}
+                            </a>
+                            <ul class="dropdown-menu">                         
+                                <li class="d-i"><a class="d-d" href="{% url 'Perfil' %}">Perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="d-a"><a class="d-d" href="cerrar_sesion">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>  
+                        <li id="drop1" class="d-i" style="display: none;"><a class="d-d" href="{% url 'Perfil' %}">Perfil</a></li>
+                        <li id="drop2" class="d-a" style="display: none;"><a class="d-d" href="cerrar_sesion">Cerrar Sesión</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <!--<div class="masthead-subheading">Bienvenido</div>-->
+                <div class="masthead-heading text-uppercase">Bienvenido</div>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" style="margin-right: 20px;" href="#solicitar">Solicitar</a>
+                    <a class="btn btn-primary btn-xl text-uppercase"  href="{% url 'QR' %}">QR</a>
+                {% else %}
+                    <a class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" href="#login">Ingresa</a>    
+                {% endif %}
+            </div>
+        </header>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Servicios</h2>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Solicitud de Servicios</h4>
+                        <p class="text-muted"> Petición formal realizada por parte del usuario para obtener alguno de los servicios ofrecidos por ESEIT.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Administracion de procesos</h4>
+                        <p class="text-muted">Permite la gestion de los serivicos ofrecidos, organizacion y control sobre ellos de manera automatizada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About-->
+        <section class="page-section" id="about">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Beneficios</h2>
+                </div>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'assets/img/about/1.jpg' %}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4></h4>
+                                <h4 class="subheading"> Mayor eficiencia </h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">La optimización de procesos permite llevar a cabo las actividades con mayor agilidad, al corregir las fallas y estandarizando los mismos.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'assets/img/about/2.jpg' %}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4></h4>
+                                <h4 class="subheading">Gestión de tiempo</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Permite optimizar el tiempo y crear flujos de trabajo más ágiles.</p></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'assets/img/about/3.jpg' %}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4></h4>
+                                <h4 class="subheading">Bajo Control</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Cuando se tienen los procesos estandarizados y monitoreados es más fácil mantener el cumplimiento. la transparencia de los procesos optimiza el procedimiento y contribuye a los resultados esperados.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'assets/img/about/4.jpg' %}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4></h4>
+                                <h4 class="subheading">Mitigación de riesgos</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Al mapear las actividades es más fácil estandarizar los procesos y formalizarlos. Esto disminuye los errores, la repetición de un mismo trabajo y las dudas sobre los procedimientos, minimizando notablemente los riesgos.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <h4>
+                                Be Part
+                                <br />
+                                Of The
+                                <br />
+                                Change!
+                            </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contáctenos</h2>
+                </div>
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- * * SB Forms Contact Form * *-->
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- This form is pre-integrated with SB Forms.-->
+                <!-- To make this form functional, sign up at-->
+                <!-- https://startbootstrap.com/solution/contact-forms-->
+                <!-- to get an API token!-->
+                <form id="contactForm" class="needs-validation" action="contacto" method="POST" novalidate>{% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input class="form-control" type="text" name="nombre" placeholder="Su nombre *" required/>
+                                <div class="invalid-feedback">
+                                    Este campo es obligatorio
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input class="form-control" type="email" name="email" placeholder="Su Email *"  required/>
+                                <div class="invalid-feedback">El correo no es válido.</div>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input class="form-control" id="phone" name="telefono" type="tel" placeholder="Su Telefono *" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Se requiere un número de teléfono.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" name="mensaje" placeholder="Su Mensaje *" required></textarea>
+                                <div class="invalid-feedback">Se requiere un mensaje.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit success message-->
+                    <!---->
+                    <!-- This is what your users will see when the form-->
+                    <!-- has successfully submitted-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase"  type="submit">Enviar Mensaje</button></div>
+                </form>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer py-4 bg-dark">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 link-light text-lg-start">Copyright &copy; ESEIT 2022</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-light btn-social mx-2" href="https://twitter.com/Kevin00MG?t=MYKnYdej86A3aOSZsNcqsg&s=09" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-light btn-social mx-2" href="https://www.facebook.com/tcastanom2507" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-light text-decoration-none me-3" href="#!">Política De Privacidad</a>
+                        <a class="link-light text-decoration-none" href="#!">Términos de Uso</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        <!--Modal Login-->
+        {% if user.is_authenticated %}
+
+        {% else %}
+            <div class="portfolio-modalLogin modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true" needs-validation novalidate>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="modal-body">
+
+                                        <form class="needs-validation" action="loguear" method="POST" novalidate>{% csrf_token %}
+                                            <div class="containerLogin">
+                                                <div class="titleLogin">
+                                                    Iniciar Sesión
+                                                    <button type="button" data-bs-dismiss="modal" class="btnX rounded-circle btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                </div>
+                                                
+                                                <div class="Logincontent">              	
+                                                    <table class="Logintable">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td style="vertical-align: inherit;">Ingrese usuario</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>                                                          
+                                                                <td >
+                                                                    <div class="Indexinputcontent">
+                                                                        <input class="Indexinputtext" type="text" name="usuario" placeholder="Usuario" aria-label="Usuario" required />
+                                                                        <span><i class="fa fa-user"></i></span>
+                                                                        <div class="invalid-feedback">
+                                                                            Este campo es obligatorio
+                                                                        </div>  
+                                                                    </div>
+                                                                </td>                            
+                                                            </tr>                               
+                                                        </tbody>                               
+                                                    </table>
+                                                </div>
+                                                <div class="Logincontent2">              	
+                                                    <table class="Logintable">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td style="vertical-align: inherit;">Ingrese contraseña</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>                                                          
+                                                                <td >
+                                                                    <div class="Indexinputcontent">
+                                                                        <input class="inputtext" type="password" name="contraseña" placeholder="Contraseña" aria-label="Contraseña" required />
+                                                                        <span><i class="fa fa-lock"></i></span>
+                                                                        <div class="invalid-feedback">
+                                                                            Este campo es obligatorio
+                                                                        </div>  
+                                                                    </div>
+                                                                </td>                            
+                                                            </tr>                   
+                                                        </tbody>                               
+                                                    </table>
+                                                </div>
+                                                <div class="Logincontent3">
+                                                    
+                                                    <div class="Indexint2">   
+                                                        
+                                                        <a class="recover-a" href="{% url 'Recover' %}"><button type="button" class="btn2 btn-outline-info">¿Olvido su contraseña?</button></a>                                               
+                                                        
+                                                        <button type="submit" class="btn2 btn-outline-success">Ingresar</button>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </form>        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+         <!--Modal Solicitar-->
+        <div class="portfolio-modal3 modal fade" id="solicitar" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-dialog2">
+                    <div class="modal-contentS">
+                        <div class="containerSoli">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="modal-body">                
+                                            <button data-bs-dismiss="modal" type="button" class="btnX rounded-circle btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i></button></a>
+                                            <div class="container text-center">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <a href="{% url 'Equipos' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                                                            <h4 class="hSoli">Equipos</h4>
+                                                        </span>
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{% url 'Balones' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-football-ball fa-stack-1x fa-inverse"></i> 
+                                                            <h4 class="hSoli">Balones</h4>                                                          
+                                                        </span>
+                                                    </a>                                                   
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{% url 'Accesorios' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-plug fa-stack-1x fa-inverse"></i>
+                                                            <h4 class="hSoli">Accesorios</h4>
+                                                        </span>
+                                                    </a>                                                   
+                                                </div>
+                                                <div class="col">
+                                                    <a href="{% url 'Entretenimiento' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class=" mgS fas fa-circle fa-stack-2x"></i>
+                                                            <i class=" mgS1 fas fa-gamepad fa-stack-1x fa-inverse"></i>
+                                                            <h4 class="hSoli">Entretenimiento</h4>
+                                                        </span>
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+
+         <!--Modal Solicitudes-->
+         <div class="portfolio-modal3 modal fade" id="solicitudes" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-dialog2">
+                    <div class="modal-contentS">
+                        <div class="containerSoli">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="modal-body">
+                                        <button data-bs-dismiss="modal" type="button" class="btnX rounded-circle btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <div class="containerNotify text-center">
+                                            
+                                            <div class="rowNotify align-items-center">
+                                                <div class="colNotify">                                                  
+                                                    <a href="{% url 'Solicitudes_equipos' %}">
+                                                        <span class="fa-stack">                                                    
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-laptop fa-stack-1x fa-inverse "></i>
+                                                        </span>
+                                                        <span class="fa-stack">                                                    
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-bell fa-stack-1x fa-inverse noti"></i>
+                                                            <h4 class="NotifyCS">
+                                                                {{Qequipo}}
+                                                            </h4>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify">
+                                                    <a href="{% url 'Solicitudes_balones' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-football-ball fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                        <span class="fa-stack">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-bell fa-stack-1x fa-inverse noti"></i>
+                                                            <h4 class="NotifyCS">{{Qbalon}}</h4>                
+                                                        </span>
+                                                    </a>                                                    
+                                                </div>
+                                                <div class="colNotify">
+                                                    <a href="{% url 'Solicitudes_accesorios' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-plug fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                        <span class="fa-stack">                                                    
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-bell fa-stack-1x fa-inverse noti"></i>
+                                                            <h4 class="NotifyCS">{{Qaccesorio}}</h4>                 
+                                                        </span>
+                                                    </a>                                                    
+                                                </div>
+                                                <div class="colNotify">
+                                                    <a href="{% url 'Solicitudes_entretenimiento' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-gamepad fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                        <span class="fa-stack">                                                    
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-bell fa-stack-1x fa-inverse noti"></i>
+                                                            <h4 class="NotifyCS">{{Qentretenimiento}}</h4>                                                                        
+                                                        </span>
+                                                    </a>                                                   
+                                                </div>                                             
+                                            </div>
+                                            <div class="rowNotify align-items-center">
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="{% url 'Solicitudes_equipos' %}">
+                                                        <h4 class="hNoti">Equipos</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="{% url 'Solicitudes_accesorios' %}">
+                                                        <h4 class="hNoti">Balones</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="{% url 'Solicitudes_accesorios' %}">
+                                                        <h4 class="hNoti">Accesorios</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="{% url 'Solicitudes_entretenimiento' %}">
+                                                        <h4 class="hNoti">Entretenimiento</h4>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <!--Modal Historial-->
+        <div class="portfolio-modal3 modal fade" id="historial" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-dialog2">
+                    <div class="modal-contentS">
+                        <div class="containerSoli">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="modal-body">
+                                        <button data-bs-dismiss="modal" type="button" class="btnX rounded-circle btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <div class="containerNotify text-center">
+                                            
+                                            <div class="rowNotify align-items-center">
+                                                <div class="colNotify3">                                                  
+                                                    <a href="{% url 'Historial_equipos' %}">
+                                                        <span class="fa-stack">                                                    
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-laptop fa-stack-1x fa-inverse "></i>
+                                                        </span>
+                                                        
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify3">
+                                                    <a href="{% url 'Historial_balones' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-football-ball fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>                                                    
+                                                </div>
+                                                <div class="colNotify3">
+                                                    <a href="{% url 'Historial_accesorio' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-plug fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>                                                    
+                                                </div>
+                                                <div class="colNotify3">
+                                                    <a href="{% url 'Historial_entretenimiento' %}">
+                                                        <span class="fa-stack fa-4x">
+                                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                                            <i class="fas fa-gamepad fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>                                                   
+                                                </div>                                             
+                                            </div>
+                                            <div class="rowNotify align-items-center">
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="#">
+                                                        <h4 class="hNoti">Equipos</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="#">
+                                                        <h4 class="hNoti">Balones</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="#">
+                                                        <h4 class="hNoti">Accesorios</h4>
+                                                    </a>
+                                                </div>
+                                                <div class="colNotify2">
+                                                    <a class="aNoti" href="#">
+                                                        <h4 class="hNoti">Entretenimiento</h4>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="{% static 'js/login.js' %}"></script>
+
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>    
+        <script>
+            alertify.set('notifier','position', 'top-right');
+        </script> 
+        
+        {% if Notificador %}
+            {% if Notificador == 1  %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.success('{{msg}}');  
+                    </script>
+                {% endfor %}
+            {% elif Notificador == 2 %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.error('{{msg}}');  
+                    </script>
+                {% endfor %}
+            {% elif Notificador == 3 %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.warning('{{msg}}');  
+                    </script>
+                {% endfor %}
+            {% elif Notificador == 4 %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.notify('{{msg}}');
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            {% if user.is_authenticated %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.success('{{msg}}');  
+                    </script>
+                {% endfor %}
+            {% else %}
+                {% for msg in messages %}   
+                    <script>
+                        alertify.error('{{msg}}');  
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+            
+        
+    </body>
+</html>
